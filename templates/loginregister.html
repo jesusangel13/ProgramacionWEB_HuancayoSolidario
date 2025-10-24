@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Huancayo Solidario | Iniciar Sesión</title>
+  <link rel="stylesheet" href="/static/loginregister.css">
+</head>
+<body>
+
+  <!-- 🎥 Fondo animado -->
+  <video id="bg-video" autoplay muted loop playsinline>
+    <source src="/static/Animated RGB 4K Wallpaper - Gravity Falls - Audio Responsive.mp4" type="video/mp4">
+  </video>
+  <div class="overlay"></div>
+
+  <!-- 📦 Contenedor principal -->
+  <div class="container">
+    <h1>💙 Huancayo Solidario</h1>
+    <p>Unidos por un cambio real</p>
+
+    <!-- 🔁 Pestañas -->
+    <div class="tabs">
+      <button class="tab-btn active" id="login-tab">Iniciar Sesión</button>
+      <button class="tab-btn" id="register-tab">Registrarse</button>
+    </div>
+
+    <!-- 🧾 Formularios -->
+    <div class="form-container">
+
+      <!-- Login -->
+      <form id="login-form" action="/login" method="post" class="form active">
+        <input type="text" name="username" placeholder="Nombre de usuario" required>
+        <input type="password" name="password" placeholder="Contraseña" required>
+        <button type="submit" class="btn">Entrar</button>
+        <p class="alt">¿No tienes cuenta? <a id="go-register">Regístrate</a></p>
+      </form>
+
+      <!-- Register -->
+      <form id="register-form" action="/register_user" method="post" class="form">
+        <input type="text" name="username" placeholder="Nuevo usuario" required>
+        <input type="password" name="password" placeholder="Contraseña" required>
+        <button type="submit" class="btn">Crear cuenta</button>
+        <p class="alt">¿Ya tienes cuenta? <a id="go-login">Inicia sesión</a></p>
+      </form>
+
+    </div>
+  </div>
+
+  <script src="/static/loginregister.js"></script>
+</body>
+</html>
