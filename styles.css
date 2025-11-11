@@ -1,0 +1,339 @@
+/* ==============================
+   STYLES EXISTENTES
+   ============================== */
+* {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  color: #333;
+  background-color: #FFF9F3;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* NAVBAR */
+.site-header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: #fffaf4;
+  border-bottom: 1px solid #e6d9c3;
+  z-index: 1000;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  color: #5E3E2E;
+  text-decoration: none;
+  font-family: 'Raleway', sans-serif;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.nav {
+  display: flex;
+  gap: 1rem;
+}
+
+.nav a {
+  position: relative;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  background-color: #7FB77E;
+  color: white;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.nav a:hover {
+  background-color: #679f67;
+  transform: translateY(-2px);
+}
+
+.btn-nav {
+  background-color: #5E8C61;
+}
+
+.btn-nav:hover {
+  background-color: #4A704C;
+}
+
+/* PANEL GENERAL */
+.panel {
+  padding: 6rem 1rem;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+/* HERO */
+.hero {
+  background: linear-gradient(to right, #E67E22, #FFD4A0);
+  color: #2C1E0F;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 2.8rem;
+  margin-bottom: .5rem;
+  font-family: 'Raleway', sans-serif;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.btn {
+  background-color: #5E8C61;
+  color: white;
+  padding: .8rem 1.5rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s, background-color 0.3s;
+}
+
+.btn:hover {
+  background-color: #4A704C;
+  transform: translateY(-3px);
+}
+
+/* CAJAS NARANJAS */
+.orange-box {
+  background: linear-gradient(145deg, #fff5ec, #ffe0b8);
+  border: 2px solid #E67E22;
+  border-radius: 20px;
+  padding: 2.5rem;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  transition: transform .4s ease, box-shadow .4s ease;
+}
+
+.orange-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.container {
+  width: 90%;
+  max-width: 1000px;
+  margin: auto;
+  text-align: center;
+}
+
+h2 {
+  color: #E67E22;
+  margin-bottom: 1rem;
+  font-family: 'Raleway', sans-serif;
+}
+
+/* CARDS */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.card {
+  background: #fffdf9;
+  padding: 1.5rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.card:hover {
+  transform: translateY(-7px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.card img {
+  width: 100%;
+  height: 160px;
+  border-radius: 10px;
+  object-fit: cover;
+  margin-bottom: 1rem;
+}
+
+/* IMPACTO */
+.stats {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #E67E22;
+}
+
+/* ==============================
+   LOGIN / REGISTRO MODAL
+   ============================== */
+.login-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  display: none; /* se muestra con JS */
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.login-modal .container {
+  background-color: white;
+  border-radius: 15px;
+  display: flex;
+  overflow: hidden;
+  max-width: 1000px;
+  width: 90%;
+  position: relative;
+}
+
+.close-modal {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 2rem;
+  color: #fff;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+/* LOGIN / REGISTRO INTERNO */
+.container-form {
+  width: 50%;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.5s ease-in-out;
+}
+
+.container-form h2 {
+  color: #3AB397;
+  margin-bottom: 1rem;
+}
+
+.container-input {
+  display: flex;
+  align-items: center;
+  background-color: #EEEEEE;
+  padding: 0 10px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  width: 100%;
+}
+
+.container-input input {
+  border: none;
+  outline: none;
+  width: 100%;
+  height: 40px;
+  background-color: inherit;
+  padding: 0 5px;
+}
+
+.social-networks {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.social-networks ion-icon {
+  border: 1px solid #c9cccb;
+  font-size: 18px;
+  border-radius: 16px;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.button {
+  width: 170px;
+  height: 45px;
+  font-size: 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  background-color: #3AB397;
+  color: white;
+  transition: 0.3s ease;
+}
+
+.button:hover {
+  background-color: #32997f;
+  transform: scale(1.05);
+}
+
+.sign-up {
+  transform: translateX(-100%);
+}
+
+.container.toggle .sign-in {
+  transform: translateX(100%);
+}
+
+.container.toggle .sign-up {
+  transform: translateX(0);
+}
+
+.container-welcome {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  transform: translateX(100%);
+  background-color: #3AB397;
+  transition: transform 0.5s ease-in-out, border-radius 0.5s ease-in-out;
+  overflow: hidden;
+  border-radius: 50% 0 0 50%;
+}
+
+.container.toggle .container-welcome {
+  transform: translateX(0);
+  border-radius: 0 50% 50% 0; 
+  background-color: #3AA8AD;
+}
+
+.container-welcome .welcome {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 0 50px;
+  color: white;
+  transition: transform 0.5s ease-in-out;
+}
+
+.welcome-sign-in {
+  transform: translateX(100%);
+}
+
+.container.toggle .welcome-sign-in {
+  transform: translateX(0);
+}
+
+.container.toggle .welcome-sign-up {
+  transform: translateX(-100%);
+}
