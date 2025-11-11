@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Huancayo Solidario</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&family=Raleway:wght@500;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="login.css" />
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</head>
+
+<body>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#inicio">
+        <span class="logo">🤝</span>
+        <div>
+          <strong>Huancayo</strong><br><small>Solidario</small>
+        </div>
+      </a>
+      <nav class="nav">
+        <a href="#inicio">Inicio</a>
+        <a href="#sobre">Sobre Nosotros</a>
+        <a href="#beneficiarios">Beneficiarios</a>
+        <a href="#impacto">Impacto</a>
+        <a href="login.html" class="btn-nav">Registrarse</a>
+
+
+
+
+      </nav>
+      <button id="menuToggle" class="hamburger">☰</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- INICIO -->
+    <section id="inicio" class="panel hero reveal">
+      <div class="container box orange-box">
+        <h1>HUANCAYO SOLIDARIO</h1>
+        <p> Hola,¡Somos Huancayo Solidario! Conectamos personas
+          y empresas que quieran hacer voluntariado y/o
+          realizar donaciones con organizaciones solidarias
+          que necesiten de su ayuda, transformando su intención
+          en acción</p>
+        <a href="login.html" class="btn">Únete ahora</a>
+
+
+
+
+
+      </div>
+    </section>
+
+    <!-- SOBRE -->
+    <section id="sobre" class="panel about reveal">
+      <div class="container box orange-box">
+        <h2>Nuestra misión:</h2>
+        <p>Expandir la solidaridad</p>
+        <h2>Nuestra vision:</h2>
+        <p>Ser la principal plataforma de ayuda de Latinoamérica</p>
+
+        <div class="cards">
+          <div class="card">
+            <h3>El problema</h3>
+            <p>Las iniciativas sociales se coordinan de forma informal, generando baja participación y pérdida de
+              oportunidades.</p>
+          </div>
+          <div class="card">
+            <h3>Objetivo</h3>
+            <p>Centralizar la información solidaria y mejorar la transparencia de las campañas en la comunidad.</p>
+          </div>
+          <div class="card">
+            <h3>Contexto</h3>
+            <p>Más del 40% de organizaciones sociales locales no usan herramientas digitales según el INEI (2023).</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BENEFICIARIOS -->
+    <section id="beneficiarios" class="panel beneficiaries reveal">
+      <div class="container box orange-box">
+        <h2>Beneficiarios</h2>
+        <div class="cards">
+          <div class="card">
+            <img src="https://cdn.pixabay.com/photo/2016/03/27/19/31/helping-hands-1288431_1280.jpg"
+              alt="Organizaciones">
+            <h3>Organizaciones</h3>
+            <p>Comedores, parroquias, ONGs y clubes de madres que organizan actividades solidarias.</p>
+          </div>
+          <div class="card">
+            <img src="https://cdn.pixabay.com/photo/2016/11/29/04/17/volunteer-1868839_1280.jpg" alt="Voluntarios">
+            <h3>Voluntarios</h3>
+            <p>Jóvenes, estudiantes y profesionales comprometidos en apoyar a su comunidad.</p>
+          </div>
+          <div class="card">
+            <img src="https://cdn.pixabay.com/photo/2017/09/25/13/12/children-2781904_1280.jpg" alt="Beneficiarios">
+            <h3>Beneficiarios</h3>
+            <p>Familias, adultos mayores y niños que reciben apoyo y oportunidades.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- IMPACTO -->
+    <section id="impacto" class="panel impact reveal">
+      <div class="container box orange-box">
+        <h2>Impacto esperado</h2>
+        <div class="stats">
+          <div class="stat" data-target="50">0%</div>
+          <div class="stat" data-target="150">0</div>
+          <div class="stat" data-target="80">0%</div>
+        </div>
+        <p>Se espera aumentar la participación voluntaria en un 50%, mejorar la transparencia y fortalecer la
+          cooperación local.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>© 2025 Huancayo Solidario — Promoviendo la ayuda y cooperación comunitaria</p>
+    </div>
+  </footer>
+
+  <!-- LOGIN MODAL -->
+  <div id="loginModal" class="login-modal">
+    <div class="container">
+      <div class="container-form">
+        <form class="sign-in" id="loginForm">
+          <h2>Iniciar sesión</h2>
+          <div class="social-networks">
+            <ion-icon name="logo-twitch"></ion-icon>
+            <ion-icon name="logo-twitter"></ion-icon>
+            <ion-icon name="logo-instagram"></ion-icon>
+            <ion-icon name="logo-facebook"></ion-icon>
+          </div>
+          <span>Use su correo y su contraseña</span>
+          <div class="container-input">
+            <ion-icon name="mail-outline"></ion-icon>
+            <input type="text" placeholder="Email" name="email" required>
+          </div>
+          <div class="container-input">
+            <ion-icon name="lock-closed-outline"></ion-icon>
+            <input type="password" placeholder="contraseña" name="password" required>
+          </div>
+          <button class="button" id="btn-login">INICIAR SESIÓN</button>
+        </form>
+      </div>
+
+      <div class="container-form">
+        <form class="sign-up">
+          <h2>Registrarse</h2>
+          <div class="social-networks">
+            <ion-icon name="logo-twitch"></ion-icon>
+            <ion-icon name="logo-twitter"></ion-icon>
+            <ion-icon name="logo-instagram"></ion-icon>
+            <ion-icon name="logo-facebook"></ion-icon>
+          </div>
+          <span>Use su correo electrónico para registrarse</span>
+          <div class="container-input">
+            <ion-icon name="person-outline"></ion-icon>
+            <input type="text" placeholder="Nombre" name="name" required>
+          </div>
+          <div class="container-input">
+            <ion-icon name="mail-outline"></ion-icon>
+            <input type="text" placeholder="Email" name="email" required>
+          </div>
+          <div class="container-input">
+            <ion-icon name="lock-closed-outline"></ion-icon>
+            <input type="password" placeholder="Password" name="password" required>
+          </div>
+          <button class="button">REGISTRARSE</button>
+        </form>
+      </div>
+
+      <div class="container-welcome">
+        <div class="welcome-sign-up welcome">
+          <h3>¡Bienvenido!</h3>
+          <p>Ingrese sus datos personales para usar todas las funciones del sitio</p>
+          <button class="button" id="btn-sign-up">Registrarse</button>
+        </div>
+        <div class="welcome-sign-in welcome">
+          <h3>¡Hola!</h3>
+          <p>Regístrese con sus datos personales para usar todas las funciones del sitio</p>
+          <button class="button" id="btn-sign-in">Iniciar Sesión</button>
+        </div>
+      </div>
+
+      <button class="close-modal" id="closeLogin">&times;</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script src="login.js"></script>
+
+</body>
+
+</html>
