@@ -1,16 +1,12 @@
 from pydantic import BaseModel
 
-class ActivityBase(BaseModel):
-    name: str
-    role: str
-    activity: str
-
-class ActivityCreate(ActivityBase):
-    pass
-
-class UserBase(BaseModel):
+# Usuario
+class UserCreate(BaseModel):
     username: str
     password: str
 
-class UserCreate(UserBase):
-    pass
+# Actividad
+class ActivityCreate(BaseModel):
+    name: str
+    role: str
+    activity: str

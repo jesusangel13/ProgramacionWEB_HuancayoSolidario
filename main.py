@@ -1,78 +1,115 @@
-import sys, os
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-
-from fastapi import FastAPI, Request, Form
+from fastapi import FastAPI, Request, Form, Depends, HTTPException
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+from fastapi.middleware.cors import CORSMiddleware
+from sqlalchemy.orm import Session
+from pathlib import Path
+from src.database import engine, Base, get_db
+from src import crud, schemas
+from . import models
 
-from src import models, database, crud, schemas
-import hashlib
+models.Base.metadata.create_all(bind=engine)
+Base.metadata.create_all(bind=engine)
 
-# Inicializar aplicación
-app = FastAPI(title="Huancayo Solidario")
+app = FastAPI(title="Huancayo_Solidario")
 
-# Conectar carpetas estáticas y plantillas
-app.mount("/static", StaticFiles(directory="src/static"), name="static")
-templates = Jinja2Templates(directory="src/templates")
+# Middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-# Crear las tablas si no existen
-models.Base.metadata.create_all(bind=database.engine)
+BASE_DIR = Path(__file__).resolve().parent
 
-# --- Hash de contraseñas ---
-def hash_password(password: str):
-    return hashlib.sha256(password.encode()).hexdigest()
+# Archivos estáticos y templates
+app.mount("/static", StaticFiles(directory=BASE_DIR / "static"), name="static")
+templates = Jinja2Templates(directory=BASE_DIR / "templates")
 
-# --- Página principal ---
+
+# ---------- PÁGINAS ----------
+
 @app.get("/", response_class=HTMLResponse)
-async def index(request: Request):
-    db = database.SessionLocal()
+def home(request: Request, db: Session = Depends(get_db)):
+    username = request.cookies.get("username")  # Leer cookie
     activities = crud.get_all_activities(db)
-    total = len(activities)
-    db.close()
-    return templates.TemplateResponse("index.html", {
-        "request": request,
-        "activities": activities,
-        "volunteers": total
-    })
+    return templates.TemplateResponse(
+        "index.html",
+        {
+            "request": request,
+            "username": username,
+            "activities": activities
+        }
+    )
 
-# --- Registrar actividad ---
+
+@app.get("/login", response_class=HTMLResponse)
+def login_page(request: Request):
+    return templates.TemplateResponse("login.html", {"request": request})
+
+
+# ---------- REGISTRO DE USUARIO ----------
+
 @app.post("/register")
-async def register(name: str = Form(...), role: str = Form(...), activity: str = Form(...)):
-    db = database.SessionLocal()
-    crud.create_activity(db, schemas.ActivityCreate(name=name, role=role, activity=activity))
-    db.close()
-    return RedirectResponse(url="/", status_code=303)
+def register_user(
+    username: str = Form(...),
+    password: str = Form(...),
+    db: Session = Depends(get_db)
+):
+    if crud.get_user_by_username(db, username):
+        raise HTTPException(status_code=400, detail="Usuario ya existe")
+    
+    user = schemas.UserCreate(username=username, password=password)
+    crud.create_user(db, user)
+    return RedirectResponse("/login", status_code=303)
 
-# --- Eliminar actividad ---
-@app.get("/delete/{activity_id}")
-async def delete_activity(activity_id: int):
-    db = database.SessionLocal()
-    crud.delete_activity(db, activity_id)
-    db.close()
-    return RedirectResponse(url="/", status_code=303)
 
-# --- LOGIN / REGISTER PAGE ---
-@app.get("/loginregister", response_class=HTMLResponse)
-async def loginregister(request: Request):
-    return templates.TemplateResponse("loginregister.html", {"request": request})
+# ---------- LOGIN ----------
 
-# --- Iniciar sesión ---
 @app.post("/login")
-async def login(username: str = Form(...), password: str = Form(...)):
-    db = database.SessionLocal()
-    hashed = hash_password(password)
-    user = crud.verify_user(db, username, hashed)
-    db.close()
-    if user:
-        return RedirectResponse(url="/", status_code=303)
-    return RedirectResponse(url="/loginregister", status_code=303)
+def login_user(
+    username: str = Form(...),
+    password: str = Form(...),
+    db: Session = Depends(get_db)
+):
+    user = crud.verify_user(db, username, password)
+    if not user:
+        raise HTTPException(status_code=401, detail="Credenciales incorrectas")
+    
+    response = RedirectResponse("/", status_code=303)
+    response.set_cookie(key="username", value=username)
+    return response
 
-# --- Registrar usuario ---
-@app.post("/register_user")
-async def register_user(username: str = Form(...), password: str = Form(...)):
-    db = database.SessionLocal()
-    hashed = hash_password(password)
-    crud.create_user(db, schemas.UserCreate(username=username, password=hashed))
-    db.close()
-    return RedirectResponse(url="/loginregister", status_code=303)
+
+# ---------- LOGOUT ----------
+
+@app.get("/logout")
+def logout():
+    response = RedirectResponse("/", status_code=303)
+    response.delete_cookie("username")
+    return response
+
+
+# ---------- FORMULARIO DE ACTIVIDADES ----------
+
+@app.post("/register_activity")
+def register_activity(
+    request: Request,
+    name: str = Form(...),
+    role: str = Form(...),
+    activity: str = Form(...),
+    db: Session = Depends(get_db)
+):
+    db_activity = schemas.ActivityCreate(name=name, role=role, activity=activity)
+    crud.create_activity(db, db_activity)
+    return RedirectResponse("/", status_code=303)
+
+
+# ---------- ELIMINAR ACTIVIDAD ----------
+
+@app.get("/delete/{activity_id}")
+def delete_activity(activity_id: int, db: Session = Depends(get_db)):
+    crud.delete_activity(db, activity_id)
+    return RedirectResponse("/", status_code=303)
