@@ -1,93 +1,163 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Huancayo Solidario 🌎</title>
-  <link rel="stylesheet" href="/static/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Huancayo Solidario</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-  <!-- 🎥 VIDEO DE FONDO -->
-  <video id="bg-video" autoplay muted loop playsinline>
-    <source src="/static/Animated RGB 4K Wallpaper - Gravity Falls - Audio Responsive.mp4" type="video/mp4">
-  </video>
+    <!-- NAVBAR MEJORADO -->
+    <header class="navbar">
+        <div class="logo">
+            <span>Huancayo Solidario</span>
+        </div>
 
-  <canvas id="particles"></canvas>
-  <div class="overlay"></div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#">Sobre Nosotros</a></li>
+                <li><a href="#">Personas</a></li>
+                <li><a href="#">Organizaciones</a></li>
+                <li><a href="#">Empresas</a></li>
+                
+                <!-- Menú para usuarios NO logueados -->
+                <div id="guestMenu" class="nav-menu">
+                    <li><a href="/login">Iniciar Sesión</a></li>
+                    <li><a class="btn" href="/register-page">Registrarse</a></li>
+                </div>
+                
+                <!-- Menú para usuarios SÍ logueados -->
+                <div id="userMenu" class="nav-menu" style="display: none;">
+                    <li class="user-dropdown">
+                        <a href="#" class="user-icon">
+                            <i class="fas fa-user-circle"></i>
+                            <span id="usernameDisplay"></span>
+                            <i class="fas fa-chevron-down"></i>
+                        </a>
+                        <div class="dropdown-menu">
+                            <a href="/profile"><i class="fas fa-user"></i> Mi Perfil</a>
+                            <a href="/my-activities"><i class="fas fa-tasks"></i> Mis Actividades</a>
+                            <a href="/settings"><i class="fas fa-cog"></i> Configuración</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="/logout" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+                        </div>
+                    </li>
+                </div>
+            </ul>
+        </nav>
+    </header>
 
-  <!-- 🌐 NAVBAR FIJA -->
-  <nav class="navbar">
-    <h2 class="logo">💙 Huancayo Solidario</h2>
-    <ul>
-      <li><a href="#inicio">Inicio</a></li>
-      <li><a href="#actividades">Actividades</a></li>
-      <li><a href="#voluntarios">Voluntarios</a></li>
-      <li><a href="/loginregister" class="login-btn">Iniciar Sesión</a></li>
-    </ul>
-  </nav>
-
-  <!-- 🏠 HEADER PRINCIPAL -->
-  <header id="inicio">
-    <h1>Huancayo Solidario</h1>
-    <p>Unidos por un cambio real 💙</p>
-  </header>
-
-  <!-- 🧱 CONTENIDO PRINCIPAL -->
-  <main>
-    <!-- FORMULARIO -->
-    <section id="actividades" class="form-card fade-in">
-      <h2>Registra tu ayuda 🤝</h2>
-      <form action="/register" method="post">
-        <input type="text" name="name" placeholder="Tu nombre completo" required>
-        <select name="role" required>
-          <option value="">Selecciona tu rol</option>
-          <option value="Voluntario">Voluntario</option>
-          <option value="Organización">Organización</option>
-        </select>
-        <textarea name="activity" rows="3" placeholder="Describe tu actividad solidaria..." required></textarea>
-        <button type="submit" class="btn">Registrar participación</button>
-      </form>
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-text">
+            <h1>Descubre tu forma de ayudar</h1>
+            <p>Encuentra el voluntariado ideal para ti.</p>
+        </div>
+        <div class="hero-img"></div>
     </section>
 
-    <!-- TABLA DE ACTIVIDADES -->
-    <section class="activities-card fade-in">
-      <h2>🌟 Actividades Registradas</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Rol</th>
-            <th>Actividad</th>
-            <th>Acción</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for a in activities %}
-          <tr>
-            <td>{{ a.name }}</td>
-            <td>{{ a.role }}</td>
-            <td>{{ a.activity }}</td>
-            <td><a href="/delete/{{ a.id }}" class="delete-btn">🗑️</a></td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+    <!-- COMO AYUDAR -->
+    <section class="help-section">
+        <h2>¿Cómo quieres ayudar?</h2>
+        <div class="help-tabs">
+            <button class="active">QUIERO SER VOLUNTARIO</button>
+            <button>QUIERO DONAR BIENES</button>
+            <button>QUIERO DONAR DINERO</button>
+        </div>
+        <div class="help-icons">
+            <div class="box"><p>Niños y Jóvenes</p></div>
+            <div class="box"><p>Adulto Mayor</p></div>
+            <div class="box"><p>Animales</p></div>
+            <div class="box"><p>Medio Ambiente</p></div>
+            <div class="box"><p>Educación</p></div>
+            <div class="box"><p>Salud</p></div>
+            <div class="box"><p>Arte y Cultura</p></div>
+            <div class="box"><p>Construcción</p></div>
+            <div class="box"><p>Otros</p></div>
+        </div>
     </section>
 
-    <!-- 🔢 CONTADOR DE VOLUNTARIOS -->
-    <section id="voluntarios" class="counter-section fade-in">
-      <h2>💪 Voluntarios Activos</h2>
-      <div id="counter" data-target="187">0</div>
+    <!-- TESTIMONIOS -->
+    <section class="testimonios">
+        <div class="card">
+            <p>"Recibes demasiado siendo un voluntario... haces networking y amigos con muy buena vibra."</p>
+            <h3>José Luis Novoa</h3>
+            <span>Voluntario en Perú</span>
+        </div>
+        <div class="card img-card"></div>
     </section>
-  </main>
 
-  <!-- ⚙️ PIE DE PÁGINA -->
-  <footer>
-    <p>© 2025 Huancayo Solidario | Hecho con 💙 para el bien común</p>
-  </footer>
+    <!-- MÉTRICAS -->
+    <section class="metrics">
+        <h2>Voluntariado en cifras</h2>
+        <div class="numbers">
+            <div><h3 class="counter" data-target="160">0</h3><p>Voluntarios registrados</p></div>
+            <div><h3 class="counter" data-target="4832814">0</h3><p>Horas de voluntariado</p></div>
+            <div><h3 class="counter" data-target="710">0</h3><p>Organizaciones sociales beneficiadas</p></div>
+            <div><h3 class="counter" data-target="3050">0</h3><p>Programas creados</p></div>
+        </div>
+    </section>
 
-  <audio id="bg-music" src="/static/music.mp3" loop></audio>
-  <script src="/static/script.js"></script>
+    <!-- ACTIVIDADES -->
+    <section class="activities">
+        <h2>🌟 Actividades Registradas</h2>
+        <div class="activities-grid" id="activitiesGrid">
+            <!-- Las actividades se cargarán dinámicamente aquí -->
+        </div>
+    </section>
+
+    <!-- NUEVO: FORMULARIO DE REGISTRO DE VOLUNTARIADO -->
+    <section class="volunteer-form-section">
+        <div class="container">
+            <h2>📝 Regístrate como Voluntario</h2>
+            <p>Selecciona tu área de interés y rol para unirte a nuestra comunidad</p>
+            
+            <form class="volunteer-form" id="volunteerForm">
+                <div class="form-group">
+                    <label for="volunteerName">Tu Nombre:</label>
+                    <input type="text" id="volunteerName" name="name" required placeholder="Ej: María González">
+                </div>
+
+                <div class="form-group">
+                    <label for="volunteerRole">Selecciona tu Rol:</label>
+                    <select id="volunteerRole" name="role" required>
+                        <option value="">-- Elige tu rol --</option>
+                        <option value="Voluntario">Voluntario</option>
+                        <option value="Coordinador">Coordinador</option>
+                        <option value="Instructor">Instructor</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="volunteerActivity">Área de Voluntariado:</label>
+                    <select id="volunteerActivity" name="activity" required>
+                        <option value="">-- Selecciona un área --</option>
+                        <option value="Niños y Jóvenes">Niños y Jóvenes</option>
+                        <option value="Adulto Mayor">Adulto Mayor</option>
+                        <option value="Animales">Animales</option>
+                        <option value="Medio Ambiente">Medio Ambiente</option>
+                        <option value="Educación">Educación</option>
+                        <option value="Salud">Salud</option>
+                        <option value="Arte y Cultura">Arte y Cultura</option>
+                        <option value="Construcción">Construcción</option>
+                        <option value="Otros">Otros</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="submit-volunteer-btn">
+                    <span class="btn-text">Registrarme como Voluntario</span>
+                    <div class="btn-loader">
+                        <div class="loader-dot"></div>
+                        <div class="loader-dot"></div>
+                        <div class="loader-dot"></div>
+                    </div>
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <script src="/static/script/script.js"></script>
 </body>
 </html>
