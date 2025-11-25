@@ -8,27 +8,37 @@ from pathlib import Path
 from src.database import get_db, engine, Base
 from src import crud, models
 
-# Crear tablas
+# ==========================================
+#              CONFIGURACIÓN INICIAL
+# ==========================================
+
+# Crear tablas en la base de datos
 Base.metadata.create_all(bind=engine)
 
-app = FastAPI(title="Huancayo_Solidario")
+app = FastAPI(title="Huancayo Solidario")
 
-# Configuración de archivos estáticos
+# Directorios
 BASE_DIR = Path(__file__).resolve().parent
 STATIC_DIR = BASE_DIR / "static"
 TEMPLATES_DIR = BASE_DIR / "templates"
 
+# Montar archivos estáticos
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
+
+# Configurar templates
 templates = Jinja2Templates(directory=TEMPLATES_DIR)
 
-# ---------------------------------------
-#               PÁGINAS
-# ---------------------------------------
 
+# ==========================================
+#                 PÁGINAS WEB
+# ==========================================
+
+# HOME
 @app.get("/", response_class=HTMLResponse)
 def home(request: Request, db: Session = Depends(get_db)):
     username = request.cookies.get("username")
     activities = crud.get_all_activities(db)
+
     return templates.TemplateResponse(
         "index.html",
         {
@@ -38,17 +48,72 @@ def home(request: Request, db: Session = Depends(get_db)):
         }
     )
 
+
+# LOGIN
 @app.get("/login", response_class=HTMLResponse)
 def login_page(request: Request):
     return templates.TemplateResponse("login.html", {"request": request})
 
+
+# REGISTER PAGE
 @app.get("/register-page", response_class=HTMLResponse)
 def register_page(request: Request):
     return templates.TemplateResponse("register.html", {"request": request})
 
-# ---------------------------------------
-#          REGISTRO DE USUARIO
-# ---------------------------------------
+
+# SOBRE NOSOTROS
+@app.get("/sobremi", response_class=HTMLResponse)
+def sobre_mi(request: Request):
+    return templates.TemplateResponse("sobreMi.html", {"request": request})
+
+
+# 🔵 EMPRESAS — ¡YA FUNCIONA CORRECTAMENTE!
+@app.get("/empresas", response_class=HTMLResponse)
+def empresas(request: Request):
+    username = request.cookies.get("username")
+    return templates.TemplateResponse("empresas.html", {
+        "request": request,
+        "username": username
+    })
+
+
+# ORGANIZACIONES
+@app.get("/organizaciones", response_class=HTMLResponse)
+def organizaciones(request: Request):
+    username = request.cookies.get("username")
+    return templates.TemplateResponse("organizaciones.html", {
+        "request": request,
+        "username": username
+    })
+
+
+# PERSONAS
+@app.get("/personas", response_class=HTMLResponse)
+def personas(request: Request):
+    username = request.cookies.get("username")
+    return templates.TemplateResponse("personas.html", {
+        "request": request,
+        "username": username
+    })
+
+
+# PERFIL
+@app.get("/profile", response_class=HTMLResponse)
+def profile(request: Request):
+    username = request.cookies.get("username")
+
+    if not username:
+        return RedirectResponse("/login", status_code=303)
+
+    return templates.TemplateResponse("profile.html", {
+        "request": request,
+        "username": username
+    })
+
+
+# ==========================================
+#            REGISTRO DE USUARIO
+# ==========================================
 
 @app.post("/register")
 def register_user(
@@ -57,18 +122,18 @@ def register_user(
     password: str = Form(...),
     db: Session = Depends(get_db)
 ):
-    # Verificar si el usuario ya existe
+    # Validación de usuario existente
     if crud.get_user_by_username(db, username):
         raise HTTPException(status_code=400, detail="Usuario ya existe")
-    
-    # Verificar si el email ya existe
+
+    # Validación de email existente
     existing_email = db.query(models.User).filter(models.User.email == email).first()
     if existing_email:
         raise HTTPException(status_code=400, detail="Email ya registrado")
-    
-    # Crear usuario
+
     hashed_password = crud.get_password_hash(password)
-    
+
+    # Crear usuario
     db_user = models.User(
         username=username,
         email=email,
@@ -76,12 +141,13 @@ def register_user(
     )
     db.add(db_user)
     db.commit()
-    
+
     return RedirectResponse("/login", status_code=303)
 
-# ---------------------------------------
-#                 LOGIN
-# ---------------------------------------
+
+# ==========================================
+#                    LOGIN
+# ==========================================
 
 @app.post("/login")
 def login_user(
@@ -90,27 +156,26 @@ def login_user(
     db: Session = Depends(get_db)
 ):
     user = crud.verify_user(db, username, password)
-    
+
     if not user:
         raise HTTPException(status_code=401, detail="Credenciales incorrectas")
-    
+
     response = RedirectResponse("/", status_code=303)
     response.set_cookie(key="username", value=username)
     return response
 
-# ---------------------------------------
-#                LOGOUT
-# ---------------------------------------
 
+# LOGOUT
 @app.get("/logout")
 def logout():
     response = RedirectResponse("/", status_code=303)
     response.delete_cookie("username")
     return response
 
-# ---------------------------------------
-#        REGISTRO DE ACTIVIDADES (CORREGIDO - SIN DUPLICADOS)
-# ---------------------------------------
+
+# ==========================================
+#            REGISTRO DE ACTIVIDADES
+# ==========================================
 
 @app.post("/register_activity")
 def register_activity(
@@ -119,41 +184,39 @@ def register_activity(
     activity: str = Form(...),
     db: Session = Depends(get_db)
 ):
-    print(f"📝 Registrando actividad: {name} como {role} en {activity}")
-    
     try:
         from src import schemas
         db_activity = schemas.ActivityCreate(name=name, role=role, activity=activity)
         new_activity = crud.create_activity(db, db_activity)
-        
-        print(f"✅ Actividad guardada con ID: {new_activity.id}")
-        
-        # Verificar que realmente se guardó
-        all_activities = crud.get_all_activities(db)
-        print(f"📊 Total de actividades en BD: {len(all_activities)}")
-        
         return {"status": "success", "message": "Actividad registrada correctamente"}
-        
+
     except Exception as e:
         print(f"❌ Error al registrar actividad: {e}")
         raise HTTPException(status_code=500, detail="Error al registrar actividad")
 
-# ---------------------------------------
-#       API ACTIVIDADES (GET/DELETE)
-# ---------------------------------------
+
+# ==========================================
+#             API: LISTADO ACTIVIDADES
+# ==========================================
 
 @app.get("/activities")
 def get_activities(db: Session = Depends(get_db)):
     return crud.get_all_activities(db)
+
+
+# ==========================================
+#             API: ELIMINAR ACTIVIDAD
+# ==========================================
 
 @app.delete("/activities/{activity_id}")
 def delete_activity(activity_id: int, db: Session = Depends(get_db)):
     crud.delete_activity(db, activity_id)
     return {"message": "deleted"}
 
-# ---------------------------------------
-#       RUTA TEMPORAL PARA RESETEO DE CONTRASEÑAS
-# ---------------------------------------
+
+# ==========================================
+#           RESET PASSWORD (TEST)
+# ==========================================
 
 @app.post("/reset-password")
 def reset_password(
@@ -161,19 +224,19 @@ def reset_password(
     new_password: str = Form(...),
     db: Session = Depends(get_db)
 ):
-    """Ruta temporal para resetear contraseñas a hash"""
     user = crud.get_user_by_username(db, username)
     if not user:
         raise HTTPException(status_code=404, detail="Usuario no encontrado")
-    
+
     user.hashed_password = crud.get_password_hash(new_password)
     db.commit()
-    
-    return {"message": f"Contraseña de {username} actualizada a hash"}
 
-# ---------------------------------------
-#       RUTA PARA VER USUARIOS (DEBUG)
-# ---------------------------------------
+    return {"message": f"Contraseña de {username} actualizada correctamente"}
+
+
+# ==========================================
+#              DEBUG: LISTA USUARIOS
+# ==========================================
 
 @app.get("/debug-users")
 def debug_users(db: Session = Depends(get_db)):
