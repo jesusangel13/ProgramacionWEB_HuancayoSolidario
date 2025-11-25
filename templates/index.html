@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Huancayo Solidario</title>
+
+    <!-- CSS -->
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-    <!-- NAVBAR MEJORADO -->
+    <!-- NAVBAR -->
     <header class="navbar">
         <div class="logo">
             <span>Huancayo Solidario</span>
@@ -17,18 +19,21 @@
 
         <nav>
             <ul class="nav-links">
-                <li><a href="#">Sobre Nosotros</a></li>
-                <li><a href="#">Personas</a></li>
-                <li><a href="#">Organizaciones</a></li>
-                <li><a href="#">Empresas</a></li>
-                
-                <!-- Menú para usuarios NO logueados -->
+
+                <li><a href="/sobremi">Sobre Nosotros</a></li>
+                <li><a href="/personas">Personas</a></li>
+                <li><a href="/organizaciones">Organizaciones</a></li>
+
+                <!-- 🔗 Corregido: enlace a empresas -->
+                <li><a href="/empresas">Empresas</a></li>
+
+                <!-- NO LOGUEADO -->
                 <div id="guestMenu" class="nav-menu">
                     <li><a href="/login">Iniciar Sesión</a></li>
                     <li><a class="btn" href="/register-page">Registrarse</a></li>
                 </div>
-                
-                <!-- Menú para usuarios SÍ logueados -->
+
+                <!-- LOGUEADO -->
                 <div id="userMenu" class="nav-menu" style="display: none;">
                     <li class="user-dropdown">
                         <a href="#" class="user-icon">
@@ -58,14 +63,19 @@
         <div class="hero-img"></div>
     </section>
 
-    <!-- COMO AYUDAR -->
+    <!-- CÓMO AYUDAR -->
     <section class="help-section">
         <h2>¿Cómo quieres ayudar?</h2>
+
         <div class="help-tabs">
             <button class="active">QUIERO SER VOLUNTARIO</button>
             <button>QUIERO DONAR BIENES</button>
             <button>QUIERO DONAR DINERO</button>
         </div>
+
+        <!-- Contenedor dinámico de categorías -->
+        <div class="categoria-contenedor" id="categoriaContenedor"></div>
+
         <div class="help-icons">
             <div class="box"><p>Niños y Jóvenes</p></div>
             <div class="box"><p>Adulto Mayor</p></div>
@@ -73,7 +83,12 @@
             <div class="box"><p>Medio Ambiente</p></div>
             <div class="box"><p>Educación</p></div>
             <div class="box"><p>Salud</p></div>
-            <div class="box"><p>Arte y Cultura</p></div>
+
+            <!-- Botón de Arte y Cultura -->
+            <div class="box arte-cultura-btn" id="arteCulturaBtn">
+                <p>Arte y Cultura</p>
+            </div>
+
             <div class="box"><p>Construcción</p></div>
             <div class="box"><p>Otros</p></div>
         </div>
@@ -92,6 +107,7 @@
     <!-- MÉTRICAS -->
     <section class="metrics">
         <h2>Voluntariado en cifras</h2>
+
         <div class="numbers">
             <div><h3 class="counter" data-target="160">0</h3><p>Voluntarios registrados</p></div>
             <div><h3 class="counter" data-target="4832814">0</h3><p>Horas de voluntariado</p></div>
@@ -103,18 +119,17 @@
     <!-- ACTIVIDADES -->
     <section class="activities">
         <h2>🌟 Actividades Registradas</h2>
-        <div class="activities-grid" id="activitiesGrid">
-            <!-- Las actividades se cargarán dinámicamente aquí -->
-        </div>
+        <div class="activities-grid" id="activitiesGrid"></div>
     </section>
 
-    <!-- NUEVO: FORMULARIO DE REGISTRO DE VOLUNTARIADO -->
+    <!-- FORMULARIO VOLUNTARIADO -->
     <section class="volunteer-form-section">
         <div class="container">
             <h2>📝 Regístrate como Voluntario</h2>
             <p>Selecciona tu área de interés y rol para unirte a nuestra comunidad</p>
-            
+
             <form class="volunteer-form" id="volunteerForm">
+
                 <div class="form-group">
                     <label for="volunteerName">Tu Nombre:</label>
                     <input type="text" id="volunteerName" name="name" required placeholder="Ej: María González">
@@ -154,10 +169,13 @@
                         <div class="loader-dot"></div>
                     </div>
                 </button>
+
             </form>
         </div>
+        
     </section>
 
+    <!-- SCRIPT PRINCIPAL -->
     <script src="/static/script/script.js"></script>
 </body>
 </html>
