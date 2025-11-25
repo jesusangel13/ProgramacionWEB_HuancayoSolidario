@@ -219,3 +219,56 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    const boton = document.getElementById("arteCulturaBtn");
+
+    boton.addEventListener("click", () => {
+
+        if (document.getElementById("modal-arte")) {
+            document.getElementById("modal-arte").remove();
+            return;
+        }
+
+        const modal = document.createElement("div");
+        modal.id = "modal-arte";
+        modal.className = "modal-arte";
+
+        modal.innerHTML = `
+            <div class="modal-box">
+
+                <!-- Modelo PNG principal -->
+                <img src="/images/model.png" class="modelo-centro">
+
+                <!-- Carrusel 3D -->
+                <div class="carrusel-3d-container">
+                    <div class="carrusel-3d" style="--quantity: 10">
+                        ${[1,2,3,4,5,6,7,8,9,10].map(i => `
+                            <div class="item-carrusel" style="--position:${i}">
+                                <img src="/images/dragon_${i}.jpg" class="imagen-carrusel">
+                            </div>
+                        `).join("")}
+                    </div>
+                </div>
+
+                <!-- Textos -->
+                <div class="contenido-texto">
+                    <h1 class="titulo-principal">未来</h1>
+                    <h2>LUN DEV</h2>
+                    <p><b>Diseño web</b></p>
+                    <p>Suscríbete al canal para ver muchos videos interesantes.</p>
+                    <button class="btn-registro-3d">Registrarme en esta área</button>
+                </div>
+
+            </div>
+        `;
+
+        document.body.appendChild(modal);
+
+        modal.addEventListener("click", (e) => {
+            if (e.target.id === "modal-arte") modal.remove();
+        });
+    });
+
+});

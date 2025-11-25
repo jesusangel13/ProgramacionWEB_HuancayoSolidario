@@ -525,3 +525,121 @@ nav ul li a {
         gap: 15px;
     }
 }
+
+/* ---------------------- MODAL MEDIANO ---------------------- */
+.modal-arte {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    backdrop-filter: blur(3px);
+}
+
+.modal-box {
+    position: relative;
+    width: 900px;
+    height: 500px;
+    background: white;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(255,255,255,0.4);
+}
+
+/* Fondo BG detrás */
+.modal-box::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url('/images/bg.png');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.4;
+    z-index: 0;
+}
+
+/* ---------------------- MODELO PNG ---------------------- */
+.modelo-centro {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 260px;
+    transform: translate(-50%, -50%);
+    z-index: 5; /* ADELANTE */
+    pointer-events: none;
+}
+
+/* ---------------------- CARRUSEL 3D ---------------------- */
+.carrusel-3d-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 320px;
+    height: 320px;
+    transform: translate(-50%, -50%);
+    perspective: 1100px;
+    z-index: 2; /* DETRÁS DEL MODELO */
+}
+
+.carrusel-3d {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transform-style: preserve-3d;
+    animation: girar 16s linear infinite;
+}
+
+.item-carrusel {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform-style: preserve-3d;
+    transform:
+        rotateY(calc(360deg / var(--quantity) * var(--position)))
+        translateZ(190px)
+        translateX(-50%)
+        translateY(-50%);
+}
+
+.imagen-carrusel {
+    width: 125px;
+    height: 180px;
+    border-radius: 10px;
+    object-fit: cover;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.25);
+}
+
+@keyframes girar {
+    from { transform: rotateY(0deg); }
+    to { transform: rotateY(360deg); }
+}
+
+/* ---------------------- TEXTOS ---------------------- */
+.contenido-texto {
+    position: absolute;
+    right: 40px;
+    top: 60px;
+    text-align: left;
+    z-index: 10;
+}
+
+.titulo-principal {
+    font-size: 50px;
+    font-weight: 900;
+}
+
+/* BOTÓN */
+.btn-registro-3d {
+    margin-top: 20px;
+    background: black;
+    color: white;
+    border: none;
+    padding: 12px 22px;
+    border-radius: 10px;
+    cursor: pointer;
+}
