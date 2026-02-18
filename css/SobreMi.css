@@ -1,0 +1,604 @@
+/* ==🎨 PALETA GLOBAL EDITABLE → Cambia colores generales del sitio======= */
+:root {
+  --color-primario: #6e69c9;
+  --color-secundario: #059669;
+  --color-acento: #8B5CF6;
+  --color-fondo: #f5cdcdea;
+  --color-texto: #1F2937;
+  --color-blanco: #ffffff;
+  --color-sombra: rgba(0,0,0,0.1);
+}
+
+/* ====🎨 VARIABLES POR SECCIÓN → Cada sección tiene su propio estilo====== */
+
+/* INTRO */
+:root {
+  --intro-bg: #eeb2b2ea;
+  --intro-card-bg: #8ace99;
+  --intro-title-color: #5a56b4;
+  --intro-text-color: #000000;
+  --intro-font: "Times New Roman", serif;
+  --intro-font-size: 1.3rem;
+}
+
+/* ARTICULAMOS */
+:root {
+  --art-card-bg: #8ace99;
+  --art-card-border: #8B5CF6;
+  --art-title-color: #3d3b72;
+  --art-text-color: #000000;
+  --art-font: "Poppins", sans-serif;
+  --art-font-size: 1.1rem;
+}
+
+/* MISIÓN / VISIÓN */
+:root {
+  --mv-box-bg: #8ace99;
+  --mv-box-border: #059669;
+  --mv-title-color: #3d3b72;
+  --mv-text-color: #000000;
+  --mv-font: "Poppins", sans-serif;
+  --mv-font-size: 1.1rem;
+}
+
+/* HISTORIA */
+:root {
+  --historia-bg: #8ace99;
+  --historia-title: #ffffff;
+  --historia-text: #000000;
+  --historia-font: "Poppins", sans-serif;
+  --historia-font-size: 1.1rem;
+}
+
+/* VALORES */
+:root {
+  --valores-card-bg: #8ace99;
+  --valores-card-border: #5a56b4;
+  --valores-title: #5a56b4;
+  --valores-text: #000000;
+  --valores-font: "Poppins", sans-serif;
+  --valores-font-size: 1.1rem;
+}
+
+/* ALIADOS */
+:root {
+  --aliados-bg: #91d19f;
+  --aliados-title: #ffffff;
+  --aliados-text: #000000;
+  --aliados-font: "Poppins", sans-serif;
+  --aliados-font-size: 1.1rem;
+}
+
+/* FOOTER */
+:root {
+  --footer-bg: #373650;
+  --footer-text: #ffffff;
+}
+
+/* ===🔧 RESET GLOBAL====== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: var(--color-fondo);
+  color: var(--color-texto);
+  line-height: 1.6;
+}
+
+section {
+  padding: 70px 6%;
+}
+
+/* ===🟦 INTRO====== */
+.intro {
+  padding-top: 60px;
+  padding-bottom: 40px;
+  background: var(--intro-bg);
+}
+
+.intro-title {
+  font-size: 2.8rem;
+  font-weight: 800;
+  text-align: center;
+  color: var(--intro-title-color);
+  margin-bottom: 30px;
+  letter-spacing: 2px; /* <-- letras separadas */
+}
+
+.intro-title::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 6px;
+  background: linear-gradient(90deg, var(--color-acento), var(--color-secundario));
+  margin: 12px auto 0;
+  border-radius: 6px;
+}
+
+.intro-container {
+  display: flex;
+  gap: 36px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.intro-img img {
+  width: 420px;
+  max-width: 100%;
+  border-radius: 16px;
+  box-shadow: 0 12px 30px var(--color-sombra);
+  transition: transform .4s ease;
+}
+
+.intro-img img:hover {
+  transform: scale(1.02);
+}
+
+.intro-text {
+  max-width: 560px;
+  background: var(--intro-card-bg);
+  padding: 25px;
+  border-radius: 18px;
+  border-left: 6px solid var(--color-acento);
+  box-shadow: 0 6px 15px var(--color-sombra);
+  animation: slideUp 1s forwards;
+  letter-spacing: 1px; /* <-- letras separadas */
+}
+
+@keyframes slideUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.intro-text p {
+  font-size: var(--intro-font-size);
+  font-family: var(--intro-font);
+  text-align: center;
+  line-height: 1.7;
+  color: var(--intro-text-color);
+  letter-spacing: 1px; /* <-- letras separadas */
+}
+
+/* ===📦 CAJAS GENERALES===== */
+.section-box {
+  max-width: 1100px;
+  background: var(--color-blanco);
+  padding: 32px;
+  border-radius: 12px;
+  border-left: 8px solid var(--color-primario);
+  box-shadow: 0 12px 30px var(--color-sombra);
+  margin: 22px auto;
+  opacity: 1;               
+  transform: translateY(0); 
+  letter-spacing: 0.5px; /* <-- letras separadas */
+}
+
+/* COLORES PERSONALIZADOS PARA CADA SECCIÓN */
+.story-section .section-box {
+  background: var(--historia-bg);
+  border-left-color: var(--historia-title);
+}
+
+.values-section .section-box {
+  border-left-color: var(--valores-card-border);
+}
+
+.mission-section .section-box {
+  border-left-color: var(--art-card-border);
+}
+
+.impact-section .section-box {
+  border-left-color: var(--mv-box-border);
+}
+
+.impact-section.aliados .section-box {
+  background: var(--aliados-bg);
+  border-left-color: var(--color-secundario);
+}
+
+/* ====✨ TITULOS DE SECCIÓN======== */
+.section-title {
+  font-size: 2.4rem;
+  font-weight: 800;
+  position: relative;
+  display: inline-block;
+  margin-bottom: 18px;
+  color: var(--color-primario);
+  letter-spacing: 2px; /* <-- letras separadas */
+}
+
+.story-section .section-title,
+.impact-section.aliados .section-title {
+  color: white !important;
+}
+
+.section-title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  height: 6px;
+  background: linear-gradient(90deg, var(--color-acento), var(--color-secundario));
+  border-radius: 6px;
+  transition: width .9s ease;
+}
+
+.section-box.visible .section-title::after {
+  width: 100%;
+}
+
+/* ====🧩 ARTICULAMOS==== */
+.mission-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.mission-card {
+  background: var(--art-card-bg);
+  padding: 20px;
+  border-radius: 10px;
+  border-left: 6px solid var(--art-card-border);
+  box-shadow: 0 8px 24px var(--color-sombra);
+  font-family: var(--art-font);
+  font-size: var(--art-font-size);
+  opacity: 1;               
+  transform: translateY(0); 
+  letter-spacing: 1px; /* <-- letras separadas */
+}
+
+.mission-card h3 {
+  font-size: 1.3rem;
+  color: var(--art-title-color);
+  letter-spacing: 1.5px; /* <-- letras separadas */
+}
+
+/* ======💚 MISIÓN / VISIÓN======== */
+.impact-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.stat-box {
+  background: var(--mv-box-bg);
+  padding: 20px;
+  border-radius: 10px;
+  border-left: 6px solid var(--mv-box-border);
+  box-shadow: 0 8px 24px var(--color-sombra);
+  font-family: var(--mv-font);
+  font-size: var(--mv-font-size);
+  opacity: 1;               
+  transform: translateY(0); 
+  letter-spacing: 1px; /* <-- letras separadas */
+}
+
+.stat-box h3 {
+  font-size: 1.3rem;
+  color: var(--mv-title-color);
+  letter-spacing: 1.5px; /* <-- letras separadas */
+}
+
+/* ====📜 HISTORIA===== */
+.story-section p {
+  font-size: var(--historia-font-size);
+  font-family: var(--historia-font);
+  color: var(--historia-text);
+  line-height: 1.7;
+  letter-spacing: 1px; /* <-- letras separadas */
+}
+
+/* =====⭐ VALORES========= */
+.valor-box {
+  background: var(--valores-card-bg);
+  padding: 18px;
+  border-radius: 10px;
+  border-left: 6px solid var(--valores-card-border);
+  box-shadow: 0 8px 24px var(--color-sombra);
+  margin-bottom: 12px;
+  font-family: var(--valores-font);
+  font-size: var(--valores-font-size);
+  opacity: 1;              
+  transform: translateY(0); 
+  letter-spacing: 1px; /* <-- letras separadas */
+}
+
+.valor-box h3 {
+  font-size: 1.25rem;
+  color: var(--valores-title);
+  letter-spacing: 1.5px; /* <-- letras separadas */
+}
+
+/* ========🤝 ALIADOS======== */
+.aliados-logos {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.aliados-logos img {
+  width: 140px;
+  opacity: 1;            
+  transition: transform .25s ease, opacity .25s ease;
+}
+
+.aliados-logos img:hover {
+  transform: scale(1.06);
+  opacity: 1;
+}
+
+/* ======🔚 FOOTER====== */
+.footer {
+  background: var(--footer-bg);
+  color: var(--footer-text);
+  text-align: center;
+  padding: 36px;
+  opacity: 1;               
+  transform: translateY(0); 
+  letter-spacing: 1px; /* <-- letras separadas */
+}
+
+/* ====📱 RESPONSIVE======= */
+
+@media (min-width: 900px) {
+  .mission-cards {
+    flex-direction: row;
+  }
+  .impact-stats {
+    flex-direction: row;
+  }
+  .intro-container {
+    align-items: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .intro-title {
+    font-size: 2rem;
+  }
+  .intro-img img {
+    max-width: 360px;
+  }
+}
+/* ======================================================
+🖼️ MARCOS GENERALES PARA TODAS LAS SECCIONES
+====================================================== */
+.section-box {
+  max-width: 1100px;
+  background: var(--color-blanco);
+  padding: 32px;
+  border-radius: 16px;
+  border: 3px solid var(--color-primario); /* marco principal */
+  box-shadow: 0 12px 30px var(--color-sombra);
+  margin: 22px auto;
+  opacity: 1;
+  transform: translateY(0);
+  letter-spacing: 0.5px; /* <-- letras separadas */
+}
+
+/* MARCOS TARJETAS */
+.mission-card, .valor-box, .stat-box {
+  border: 2px solid var(--color-primario);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px var(--color-sombra);
+  padding: 20px;
+  transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+  letter-spacing: 1px; /* <-- letras separadas */
+}
+
+/* Hover / tilt efectos con marco */
+.mission-card:hover, .valor-box:hover, .stat-box:hover {
+  border-color: var(--color-acento);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.25);
+  transform: translateY(-4px) scale(1.03);
+}
+
+/* Marcos para la sección de aliados */
+.impact-section.aliados .section-box {
+  border: 3px solid var(--color-blanco);
+  border-radius: 16px;
+  padding: 32px;
+}
+
+/* INTRO: Marco sutil */
+.intro-text {
+  border: 3px solid var(--color-acento);
+  border-radius: 18px;
+  padding: 25px;
+  box-shadow: 0 6px 15px var(--color-sombra);
+}
+
+/* Footer marco */
+.footer {
+  border-top: 3px solid var(--color-primario);
+  border-radius: 0;
+  padding: 36px;
+  text-align: center;
+  letter-spacing: 1px; /* <-- letras separadas */
+}
+
+/* ===== NAVBAR GENERAL ===== */
+.navbar {
+  width: 100%;
+  padding: 15px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  border-bottom: 1px solid #eee;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: bold;
+  color: #740027;
+  text-decoration: none;
+}
+
+.nav-links a {
+  margin: 0 15px;
+  color: #333;
+  font-size: 16px;
+  text-decoration: none;
+}
+
+.nav-links a:hover {
+  color: #740027;
+}
+
+/* ===== USER MENU ===== */
+.user-menu {
+  position: relative;
+}
+
+.user-btn {
+  background: #740027;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 25px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.user-btn .arrow {
+  font-size: 12px;
+}
+
+.dropdown {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 45px;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.dropdown a {
+  display: block;
+  padding: 10px 15px;
+  text-decoration: none;
+  color: #333;
+}
+
+.dropdown a:hover {
+  background: #f5f5f5;
+}
+
+/* Mostrar menú */
+.user-menu:hover .dropdown {
+  display: block;
+}
+
+/* ============================
+   NAVBAR — CORRECCIÓN TOTAL
+============================ */
+
+.navbar {
+  width: 100%;
+  padding: 15px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  border-bottom: 3px solid var(--color-primario);
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--color-primario);
+  text-decoration: none;
+  letter-spacing: 1px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-links a {
+  color: #333;
+  font-size: 17px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: var(--color-primario);
+}
+
+/* ========= USER DROPDOWN =========== */
+
+.user-menu {
+  position: relative;
+}
+
+.user-btn {
+  background: var(--color-primario);
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 50px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 16px;
+  transition: 0.3s ease;
+}
+
+.user-btn:hover {
+  background: var(--color-acento);
+}
+
+.dropdown {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 48px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  overflow: hidden;
+  min-width: 150px;
+}
+
+.dropdown a {
+  display: block;
+  padding: 12px 15px;
+  color: #333;
+  text-decoration: none;
+  transition: 0.3s ease;
+}
+
+.dropdown a:hover {
+  background: #f5f5f5;
+}
+
+.user-menu:hover .dropdown {
+  display: block;
+}

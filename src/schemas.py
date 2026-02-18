@@ -1,7 +1,23 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel
+from typing import Optional
 
-# ---------------- ACTIVITIES ----------------
+# Esquema para crear usuario (DEBE incluir email)
+class UserCreate(BaseModel):
+    username: str
+    email: str
+    password: str
 
+# Esquema para respuesta de usuario
+class User(BaseModel):
+    id: int
+    username: str
+    email: str
+    role: Optional[str] = "voluntario"
+    
+    class Config:
+        from_attributes = True
+
+# Esquema para actividades
 class ActivityBase(BaseModel):
     name: str
     role: str
@@ -10,25 +26,8 @@ class ActivityBase(BaseModel):
 class ActivityCreate(ActivityBase):
     pass
 
-class ActivityResponse(ActivityBase):
+class Activity(ActivityBase):
     id: int
-    class Config:
-        from_attributes = True
-
-
-# ---------------- USERS ----------------
-
-class UserBase(BaseModel):
-    username: str
-    email: EmailStr
-
-class UserCreate(UserBase):
-    password: str
-    role: str = "volunteer"  # Default role
-
-class UserResponse(UserBase):
-    id: int
-    role: str
-
+    
     class Config:
         from_attributes = True
